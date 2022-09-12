@@ -13,6 +13,27 @@
 #define CL_CONSTANT
 #endif
 
+//
+// Selects a SYCL device using a string. This is typically used to select
+// the FPGA simulator device
+//
+class select_by_string : public sycl::default_selector {
+public:
+  select_by_string(std::string s) : target_name(s) {}
+  virtual int operator()(const sycl::device& device) const {
+    std::string name = device.get_info<sycl::info::device::name>();
+    if (name.find(target_name) != std::string::npos) {
+      // The returned value represents a priority, this number is chosen to be
+      // large to ensure high priority
+      return 10000;
+    }
+    return -1;
+  }
+ 
+private:
+  std::string target_name;
+};
+
 using namespace sycl;
 
 #define PRINTF(format, ...)                                    \
@@ -36,6 +57,7 @@ int main(int argc, char* argv[]) {
   // Create some kernel arguments for printing.
   int x = 123;
   float y = 1.0f;
+  std::cout << "Going into kernel\n";
   try {
     q.submit([&](handler& h) {
        h.single_task<BasicKernel>([=]() {
