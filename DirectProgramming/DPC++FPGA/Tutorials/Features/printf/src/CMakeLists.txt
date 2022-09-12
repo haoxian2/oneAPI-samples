@@ -4,6 +4,7 @@
 set(SOURCE_FILE printf.cpp)
 set(TARGET_NAME printf)
 set(EMULATOR_TARGET ${TARGET_NAME}.fpga_emu)
+set(SIMULATOR_TARGET ${TARGET_NAME}.fpga_sim)
 set(FPGA_TARGET ${TARGET_NAME}.fpga)
 
 # FPGA board selection
@@ -22,8 +23,10 @@ endif()
 #    For this reason, FPGA backend flags must be passed as link flags in CMake.
 set(EMULATOR_COMPILE_FLAGS "-fintelfpga -DFPGA_EMULATOR")
 set(EMULATOR_LINK_FLAGS "-fintelfpga")
-set(HARDWARE_COMPILE_FLAGS "-fintelfpga")
-set(HARDWARE_LINK_FLAGS "-fintelfpga -Xshardware -Xstarget=${FPGA_DEVICE} ${USER_HARDWARE_FLAGS}")
+set(SIMULATOR_COMPILE_FLAGS "-Wall ${WIN_FLAG} -fintelfpga -DFPGA_SIMULATOR -Xssimulation ${DEVICE_FLAG}")
+set(SIMULATOR_LINK_FLAGS "-fintelfpga -Xssimulation -Xsboard=${FPGA_BOARD} ${DEVICE_FLAG} ${USER_SIMULATOR_FLAGS}")
+set(HARDWARE_COMPILE_FLAGS "${WIN_FLAG} -fintelfpga")
+set(HARDWARE_LINK_FLAGS "-fintelfpga -Xshardware -Xsboard=${FPGA_BOARD} ${USER_HARDWARE_FLAGS}")
 # use cmake -D USER_HARDWARE_FLAGS=<flags> to set extra flags for FPGA backend compilation
 
 ###############################################################################
@@ -39,6 +42,18 @@ target_include_directories(${EMULATOR_TARGET} PRIVATE ../../../../include)
 set_target_properties(${EMULATOR_TARGET} PROPERTIES COMPILE_FLAGS "${EMULATOR_COMPILE_FLAGS}")
 set_target_properties(${EMULATOR_TARGET} PROPERTIES LINK_FLAGS "${EMULATOR_LINK_FLAGS}")
 add_custom_target(fpga_emu DEPENDS ${EMULATOR_TARGET})
+
+###############################################################################
+### FPGA Simulator
+###############################################################################
+# To compile in a single command:
+#   dpcpp -fintelfpga -DFPGA_SIMULATOR -Xssimulation -Xstarget=Arria10 printf.cpp -o printf.fpga_sim
+add_executable(${SIMULATOR_TARGET} ${SOURCE_FILE})
+target_include_directories(${SIMULATOR_TARGET} PRIVATE -I/$INTELFPGAOCLSDKROOT/include)
+target_include_directories(${SIMULATOR_TARGET} PRIVATE ../../../../include) 
+set_target_properties(${SIMULATOR_TARGET} PROPERTIES COMPILE_FLAGS "${SIMULATOR_COMPILE_FLAGS}")
+set_target_properties(${SIMULATOR_TARGET} PROPERTIES LINK_FLAGS "${SIMULATOR_LINK_FLAGS}")
+add_custom_target(fpga_sim DEPENDS ${SIMULATOR_TARGET})
 
 ###############################################################################
 ### Generate Report
