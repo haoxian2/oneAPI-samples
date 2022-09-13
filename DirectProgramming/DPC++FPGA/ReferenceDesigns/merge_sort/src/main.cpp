@@ -47,8 +47,29 @@ static_assert(fpga_tools::IsPow2(kMergeUnits));
 #define SORT_WIDTH 4
 #endif
 constexpr size_t kSortWidth = SORT_WIDTH;
-static_assert(kSortWidth >= 1);
+static_assert(kSortWidth >= 1); 
 static_assert(fpga_tools::IsPow2(kSortWidth));
+
+//
+// Selects a SYCL device using a string. This is typically used to select
+// the FPGA simulator device
+//
+class select_by_string : public sycl::default_selector {
+public:
+  select_by_string(std::string s) : target_name(s) {}
+  virtual int operator()(const sycl::device& device) const {
+    std::string name = device.get_info<sycl::info::device::name>();
+    if (name.find(target_name) != std::string::npos) {
+      // The returned value represents a priority, this number is chosen to be
+      // large to ensure high priority
+      return 10000;
+    }
+    return -1;
+  }
+ 
+private:
+  std::string target_name;
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // Forward declare functions used in this file by main()
@@ -74,6 +95,9 @@ int main(int argc, char *argv[]) {
   // defaults
   bool passed = true;
 #ifdef FPGA_EMULATOR
+  IndexT count = 128;
+  int runs = 2;
+#elif FPGA_SIMULATOR
   IndexT count = 128;
   int runs = 2;
 #else
@@ -120,6 +144,10 @@ int main(int argc, char *argv[]) {
   // the device selector
 #ifdef FPGA_EMULATOR
   ext::intel::fpga_emulator_selector selector;
+#elif FPGA_SIMULATOR
+  std::string simulator_device_string =
+      "SimulatorDevice : Multi-process Simulator (aclmsim0)";
+  select_by_string selector = select_by_string{simulator_device_string};
 #else
   ext::intel::fpga_selector selector;
 #endif

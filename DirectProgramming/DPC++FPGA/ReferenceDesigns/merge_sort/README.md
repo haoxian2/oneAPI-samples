@@ -82,6 +82,11 @@ After learning how to use the extensions for Intel oneAPI Toolkits, return to th
        ```
        make fpga_emu
        ```
+    * Compile for simluation (medium compile time, targets simulated FPGA device):
+
+       ```
+       make fpga_sim
+       ```
 
     * Generate HTML performance report. Find the report in `merge_sort_report.prj/reports/report.html`directory.
 
@@ -116,6 +121,10 @@ After learning how to use the extensions for Intel oneAPI Toolkits, return to th
    * Compile for emulation (fast compile time, targets emulated FPGA device):
      ```
      nmake fpga_emu
+     ```
+   * Compile for simulation (medium compile time, targets simulated FPGA device):
+     ```
+     nmake fpga_sim
      ```
    * Generate the optimization report:
      ```
@@ -157,8 +166,13 @@ You can compile and run this Reference Design in the Eclipse* IDE (in Linux*) an
      ./merge_sort.fpga_emu    (Linux)
      merge_sort.fpga_emu.exe  (Windows)
      ```
+2. Run the sample on the FPGA simulator:
+     ```
+     CL_CONTEXT_MPSIM_DEVICE_INTELFPGA=1 ./merge_sort.fpga_sim     (Linux)
+     CL_CONTEXT_MPSIM_DEVICE_INTELFPGA=1 merge_sort.fpga_sim.exe   (Windows)
+     ```
 
-2. Run the sample on the FPGA device.
+3. Run the sample on the FPGA device.
      ```
      ./merge_sort.fpga        (Linux)
      merge_sort.fpga.exe      (Windows)

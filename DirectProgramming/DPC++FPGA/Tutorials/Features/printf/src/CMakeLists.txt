@@ -23,7 +23,7 @@ endif()
 #    For this reason, FPGA backend flags must be passed as link flags in CMake.
 set(EMULATOR_COMPILE_FLAGS "-fintelfpga -DFPGA_EMULATOR")
 set(EMULATOR_LINK_FLAGS "-fintelfpga")
-set(SIMULATOR_COMPILE_FLAGS "-Wall ${WIN_FLAG} -fintelfpga -DFPGA_SIMULATOR -Xssimulation ${DEVICE_FLAG}")
+set(SIMULATOR_COMPILE_FLAGS "${WIN_FLAG} -fintelfpga -DFPGA_SIMULATOR -Xssimulation ${DEVICE_FLAG}")
 set(SIMULATOR_LINK_FLAGS "-fintelfpga -Xssimulation -Xsboard=${FPGA_BOARD} ${DEVICE_FLAG} ${USER_SIMULATOR_FLAGS}")
 set(HARDWARE_COMPILE_FLAGS "${WIN_FLAG} -fintelfpga")
 set(HARDWARE_LINK_FLAGS "-fintelfpga -Xshardware -Xsboard=${FPGA_BOARD} ${USER_HARDWARE_FLAGS}")
