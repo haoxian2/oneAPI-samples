@@ -23,7 +23,7 @@ endif()
 #    For this reason, FPGA backend flags must be passed as link flags in CMake.
 set(EMULATOR_COMPILE_FLAGS "-fintelfpga -DFPGA_EMULATOR")
 set(EMULATOR_LINK_FLAGS "-fintelfpga")
-set(SIMULATOR_COMPILE_FLAGS "${WIN_FLAG} -fintelfpga -DFPGA_SIMULATOR -Xssimulation")
+set(SIMULATOR_COMPILE_FLAGS "${WIN_FLAG} -fintelfpga -DFPGA_SIMULATOR")
 set(SIMULATOR_LINK_FLAGS "-fintelfpga -Xssimulation -Xsboard=${FPGA_BOARD} ${USER_SIMULATOR_FLAGS}")
 set(HARDWARE_COMPILE_FLAGS "${WIN_FLAG} -fintelfpga")
 set(HARDWARE_LINK_FLAGS "-fintelfpga -Xshardware -Xsboard=${FPGA_BOARD} ${USER_HARDWARE_FLAGS}")
@@ -47,7 +47,7 @@ add_custom_target(fpga_emu DEPENDS ${EMULATOR_TARGET})
 ### FPGA Simulator
 ###############################################################################
 # To compile in a single command:
-#   dpcpp -fintelfpga -DFPGA_SIMULATOR -Xssimulation -Xstarget=Arria10 printf.cpp -o printf.fpga_sim
+#   dpcpp -fintelfpga -DFPGA_SIMULATOR -Xssimulation -Xstarget=<FPGA_BOARD> printf.cpp -o printf.fpga_sim
 add_executable(${SIMULATOR_TARGET} ${SOURCE_FILE})
 set_target_properties(${SIMULATOR_TARGET} PROPERTIES COMPILE_FLAGS "${SIMULATOR_COMPILE_FLAGS}")
 set_target_properties(${SIMULATOR_TARGET} PROPERTIES LINK_FLAGS "${SIMULATOR_LINK_FLAGS}")
