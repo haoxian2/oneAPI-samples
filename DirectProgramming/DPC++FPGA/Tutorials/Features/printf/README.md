@@ -201,8 +201,8 @@ From the report, you can find the compilation information of the design and the 
      ```
 2. Run the sample on the FPGA simulator:
      ```
-     CL_CONTEXT_MPSIM_DEVICE_INTELFPGA=1 ./printf.fpga_sim     (Linux)
-     CL_CONTEXT_MPSIM_DEVICE_INTELFPGA=1 printf.fpga_sim.exe   (Windows)
+     ./printf.fpga_sim     (Linux)
+     printf.fpga_sim.exe   (Windows)
      ```
 3. Run the sample on the FPGA device:
      ```
