@@ -168,8 +168,8 @@ You can compile and run this Reference Design in the Eclipse* IDE (in Linux*) an
      ```
 2. Run the sample on the FPGA simulator:
      ```
-     CL_CONTEXT_MPSIM_DEVICE_INTELFPGA=1 ./merge_sort.fpga_sim     (Linux)
-     CL_CONTEXT_MPSIM_DEVICE_INTELFPGA=1 merge_sort.fpga_sim.exe   (Windows)
+     ./merge_sort.fpga_sim     (Linux)
+     merge_sort.fpga_sim.exe   (Windows)
      ```
 
 3. Run the sample on the FPGA device.
