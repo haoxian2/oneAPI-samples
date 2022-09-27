@@ -116,7 +116,7 @@ When compiling for FPGA hardware, it is recommended to increase the job timeout 
       ```
       make fpga_emu
       ```
-   * Compile for simluation (medium compile time, targets simulated FPGA device):
+   * Compile for simulation (medium compile time, targets simulated FPGA device):
       ```
       make fpga_sim
       ```

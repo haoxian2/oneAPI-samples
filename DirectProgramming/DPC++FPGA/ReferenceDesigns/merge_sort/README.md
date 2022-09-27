@@ -82,7 +82,7 @@ After learning how to use the extensions for Intel oneAPI Toolkits, return to th
        ```
        make fpga_emu
        ```
-    * Compile for simluation (medium compile time, targets simulated FPGA device):
+    * Compile for simulation (medium compile time, targets simulated FPGA device):
 
        ```
        make fpga_sim
