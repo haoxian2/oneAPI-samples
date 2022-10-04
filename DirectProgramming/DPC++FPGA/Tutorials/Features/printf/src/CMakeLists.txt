@@ -15,7 +15,6 @@ if(NOT DEFINED FPGA_DEVICE)
                     \nPlease refer to the README for information on board selection.")
 else()
     message(STATUS "Configuring the design to run on FPGA board ${FPGA_DEVICE}")
-endif()
 
 # A DPC++ ahead-of-time (AoT) compile processes the device code in two stages.
 # 1. The "compile" stage compiles the device code to an intermediate representation (SPIR-V).
@@ -23,10 +22,10 @@ endif()
 #    For this reason, FPGA backend flags must be passed as link flags in CMake.
 set(EMULATOR_COMPILE_FLAGS "-fintelfpga -DFPGA_EMULATOR")
 set(EMULATOR_LINK_FLAGS "-fintelfpga")
-set(SIMULATOR_COMPILE_FLAGS "${WIN_FLAG} -fintelfpga -DFPGA_SIMULATOR")
-set(SIMULATOR_LINK_FLAGS "-fintelfpga -Xssimulation -Xsboard=${FPGA_BOARD} ${USER_SIMULATOR_FLAGS}")
-set(HARDWARE_COMPILE_FLAGS "${WIN_FLAG} -fintelfpga")
-set(HARDWARE_LINK_FLAGS "-fintelfpga -Xshardware -Xsboard=${FPGA_BOARD} ${USER_HARDWARE_FLAGS}")
+set(SIMULATOR_COMPILE_FLAGS "-fintelfpga -DFPGA_SIMULATOR")
+set(SIMULATOR_LINK_FLAGS "-fintelfpga -Xssimulation -Xsboard=${FPGA_TARGET} ${USER_SIMULATOR_FLAGS}")
+set(HARDWARE_COMPILE_FLAGS "-fintelfpga")
+set(HARDWARE_LINK_FLAGS "-fintelfpga -Xshardware -Xsboard=${FPGA_TARGET} ${USER_HARDWARE_FLAGS}")
 # use cmake -D USER_HARDWARE_FLAGS=<flags> to set extra flags for FPGA backend compilation
 
 ###############################################################################
@@ -47,7 +46,7 @@ add_custom_target(fpga_emu DEPENDS ${EMULATOR_TARGET})
 ### FPGA Simulator
 ###############################################################################
 # To compile in a single command:
-#   dpcpp -fintelfpga -DFPGA_SIMULATOR -Xssimulation -Xstarget=<FPGA_BOARD> printf.cpp -o printf.fpga_sim
+#   dpcpp -fintelfpga -DFPGA_SIMULATOR -Xssimulation -Xstarget=<FPGA_TARGET> printf.cpp -o printf.fpga_sim
 add_executable(${SIMULATOR_TARGET} ${SOURCE_FILE})
 set_target_properties(${SIMULATOR_TARGET} PROPERTIES COMPILE_FLAGS "${SIMULATOR_COMPILE_FLAGS}")
 set_target_properties(${SIMULATOR_TARGET} PROPERTIES LINK_FLAGS "${SIMULATOR_LINK_FLAGS}")
@@ -57,7 +56,11 @@ add_custom_target(fpga_sim DEPENDS ${SIMULATOR_TARGET})
 ### Generate Report
 ###############################################################################
 # To compile manually:
+<<<<<<< HEAD
 #   dpcpp -fintelfpga -Xshardware -Xstarget=<FPGA_DEVICE> -fsycl-link=early printf.cpp -o printf_report.a
+=======
+#   dpcpp -fintelfpga -Xshardware -Xstarget=<FPGA_TARGET> -fsycl-link=early printf.cpp -o printf_report.a
+>>>>>>> df4c0ab8... added changes from mark's changes
 set(FPGA_EARLY_IMAGE ${TARGET_NAME}_report.a)
 # The compile output is not an executable, but an intermediate compilation result unique to DPC++.
 add_executable(${FPGA_EARLY_IMAGE} ${SOURCE_FILE})
@@ -71,10 +74,17 @@ set_target_properties(${FPGA_EARLY_IMAGE} PROPERTIES LINK_FLAGS "${HARDWARE_LINK
 ### FPGA Hardware
 ###############################################################################
 # To compile in a single command:
+<<<<<<< HEAD
 #   dpcpp -fintelfpga -Xshardware -Xstarget=<FPGA_DEVICE> printf.cpp -o printf.fpga
 # CMake executes:
 #   [compile] dpcpp -fintelfpga -o printf.cpp.o -c printf.cpp
 #   [link]    dpcpp -fintelfpga -Xshardware -Xstarget=<FPGA_DEVICE> printf.cpp.o -o printf.fpga
+=======
+#   dpcpp -fintelfpga -Xshardware -Xstarget=<FPGA_TARGET> printf.cpp -o printf.fpga
+# CMake executes:
+#   [compile] dpcpp -fintelfpga -o printf.cpp.o -c printf.cpp
+#   [link]    dpcpp -fintelfpga -Xshardware -Xstarget=<FPGA_TARGET> printf.cpp.o -o printf.fpga
+>>>>>>> df4c0ab8... added changes from mark's changes
 add_executable(${FPGA_TARGET} EXCLUDE_FROM_ALL ${SOURCE_FILE})
 target_include_directories(${FPGA_TARGET} PRIVATE ../../../../include)
 add_custom_target(fpga DEPENDS ${FPGA_TARGET})
