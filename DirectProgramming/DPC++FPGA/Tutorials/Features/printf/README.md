@@ -104,6 +104,7 @@ When compiling for FPGA hardware, it is recommended to increase the job timeout 
    Alternatively, to compile for the Intel&reg; FPGA PAC D5005 (with Intel Stratix&reg; 10 SX), run `cmake` using the command:
    ```
 <<<<<<< HEAD
+<<<<<<< HEAD
    cmake .. -DFPGA_DEVICE=intel_s10sx_pac:pac_s10
    ```
    You can also compile for a custom FPGA platform. Ensure that the board support package is installed on your system. Then run `cmake` using the command:
@@ -116,6 +117,13 @@ When compiling for FPGA hardware, it is recommended to increase the job timeout 
    ```
    cmake .. -DFPGA_TARGET=<board-support-package>:<board-variant>
 >>>>>>> df4c0ab8... added changes from mark's changes
+=======
+   cmake .. -DFPGA_BOARD=intel_s10sx_pac:pac_s10
+   ```
+   You can also compile for a custom FPGA platform. Ensure that the board support package is installed on your system. Then run `cmake` using the command:
+   ```
+   cmake .. -DFPGA_BOARD=<board-support-package>:<board-variant>
+>>>>>>> 6177e7b7... Revert "added changes from mark's changes"
    ```
 
 2. Compile the design through the generated `Makefile`. The following build targets are provided, matching the recommended development flow:
@@ -152,6 +160,7 @@ When compiling for FPGA hardware, it is recommended to increase the job timeout 
    Alternatively, to compile for the Intel&reg; FPGA PAC D5005 (with Intel Stratix&reg; 10 SX), run `cmake` using the command:
    ```
 <<<<<<< HEAD
+<<<<<<< HEAD
    cmake -G "NMake Makefiles" .. -DFPGA_DEVICE=intel_s10sx_pac:pac_s10
    ```
    You can also compile for a custom FPGA platform. Ensure that the board support package is installed on your system. Then run `cmake` using the command:
@@ -164,6 +173,13 @@ When compiling for FPGA hardware, it is recommended to increase the job timeout 
    ```
    cmake -G "NMake Makefiles" .. -DFPGA_TARGET=<board-support-package>:<board-variant>
 >>>>>>> df4c0ab8... added changes from mark's changes
+=======
+   cmake -G "NMake Makefiles" .. -DFPGA_BOARD=intel_s10sx_pac:pac_s10
+   ```
+   You can also compile for a custom FPGA platform. Ensure that the board support package is installed on your system. Then run `cmake` using the command:
+   ```
+   cmake -G "NMake Makefiles" .. -DFPGA_BOARD=<board-support-package>:<board-variant>
+>>>>>>> 6177e7b7... Revert "added changes from mark's changes"
    ```
 
 2. Compile the design through the generated `Makefile`. The following build targets are provided, matching the recommended development flow:
