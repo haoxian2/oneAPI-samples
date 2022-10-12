@@ -72,11 +72,7 @@ After learning how to use the extensions for Intel oneAPI Toolkits, return to th
    If instead you are compiling for the Intel&reg; FPGA PAC D5005 (with Intel Stratix&reg; 10 SX), run `cmake` using the command:
 
    ```
-<<<<<<< HEAD
    cmake .. -DFPGA_DEVICE=intel_s10sx_pac:pac_s10
-=======
-   cmake .. -DFPGA_BOARD=intel_s10sx_pac:pac_s10
->>>>>>> 472c1d59... Corrected old Xstarget
    ```
 
 2. Compile the design through the generated `Makefile`. The following targets are provided, and they match the recommended development flow:

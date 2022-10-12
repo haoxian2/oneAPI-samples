@@ -64,9 +64,9 @@ endif()
 set(EMULATOR_COMPILE_FLAGS "-Wall -fintelfpga ${ENABLE_USM} ${MERGE_UNITS_FLAG} ${SORT_WIDTH_FLAG} -DFPGA_EMULATOR")
 set(EMULATOR_LINK_FLAGS "-fintelfpga ${ENABLE_USM} ${MERGE_UNITS_FLAG} ${SORT_WIDTH_FLAG}")
 set(SIMULATOR_COMPILE_FLAGS "-Wall -fintelfpga ${ENABLE_USM} ${MERGE_UNITS_FLAG} ${SORT_WIDTH_FLAG} -DFPGA_SIMULATOR")
-set(SIMULATOR_LINK_FLAGS "-fintelfpga -Xssimulation ${PROFILE_FLAG} ${SEED_FLAG} -Xsboard=${FPGA_BOARD} ${ENABLE_USM} ${MERGE_UNITS_FLAG} ${SORT_WIDTH_FLAG} ${USER_SIMULATOR_FLAGS}")
+set(SIMULATOR_LINK_FLAGS "-fintelfpga -Xssimulation ${PROFILE_FLAG} ${SEED_FLAG} -Xstarget=${FPGA_DEVICE} ${ENABLE_USM} ${MERGE_UNITS_FLAG} ${SORT_WIDTH_FLAG} ${USER_SIMULATOR_FLAGS}")
 set(HARDWARE_COMPILE_FLAGS "-Wall -fintelfpga ${ENABLE_USM} ${MERGE_UNITS_FLAG} ${SORT_WIDTH_FLAG}")
-set(HARDWARE_LINK_FLAGS "-fintelfpga -Xshardware ${PROFILE_FLAG} -Xsparallel=2 ${SEED_FLAG} -Xsboard=${FPGA_BOARD} ${ENABLE_USM} ${MERGE_UNITS_FLAG} ${SORT_WIDTH_FLAG} ${USER_HARDWARE_FLAGS}")
+set(HARDWARE_LINK_FLAGS "-fintelfpga -Xshardware ${PROFILE_FLAG} -Xsparallel=2 ${SEED_FLAG} -Xstarget=${FPGA_DEVICE} ${ENABLE_USM} ${MERGE_UNITS_FLAG} ${SORT_WIDTH_FLAG} ${USER_HARDWARE_FLAGS}")
 # use cmake -D USER_HARDWARE_FLAGS=<flags> to set extra flags for FPGA backend compilation
 
 ###############################################################################
