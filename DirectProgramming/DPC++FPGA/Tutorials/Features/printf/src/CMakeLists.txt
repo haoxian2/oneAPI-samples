@@ -74,7 +74,7 @@ set_target_properties(${FPGA_EARLY_IMAGE} PROPERTIES LINK_FLAGS "${HARDWARE_LINK
 #   dpcpp -fintelfpga -Xshardware -Xstarget=<FPGA_DEVICE> printf.cpp -o printf.fpga
 # CMake executes:
 #   [compile] dpcpp -fintelfpga -o printf.cpp.o -c printf.cpp
-#   [link]    dpcpp -fintelfpga -Xshardware -Xsboard=<FPGA_BOARD> printf.cpp.o -o printf.fpga
+#   [link]    dpcpp -fintelfpga -Xshardware -Xstarget=<FPGA_DEVICE> printf.cpp.o -o printf.fpga
 add_executable(${FPGA_TARGET} EXCLUDE_FROM_ALL ${SOURCE_FILE})
 target_include_directories(${FPGA_TARGET} PRIVATE ../../../../include)
 add_custom_target(fpga DEPENDS ${FPGA_TARGET})
