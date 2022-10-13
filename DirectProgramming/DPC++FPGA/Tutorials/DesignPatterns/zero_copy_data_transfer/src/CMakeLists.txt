@@ -64,6 +64,7 @@ add_custom_target(fpga_emu DEPENDS ${EMULATOR_TARGET})
 #    [compile] dpcpp -fintelfpga -Xssimulation -DFPGA_SIMULATOR -o zero_copy_data_transfer.cpp.o -c zero_copy_data_transfer.cpp
 #    [link]    dpcpp -fintelfpga -Xssimulation -Xsboard=<FPGA_DEVICE> zero_copy_data_transfer.cpp.o -o zero_copy_data_transfer.fpga_sim
 add_executable(${SIMULATOR_TARGET} ${SOURCE_FILE})
+target_include_directories(${SIMULATOR_TARGET} PRIVATE ../../../../include)
 set_target_properties(${SIMULATOR_TARGET} PROPERTIES COMPILE_FLAGS "${SIMULATOR_COMPILE_FLAGS}")
 set_target_properties(${SIMULATOR_TARGET} PROPERTIES LINK_FLAGS "${SIMULATOR_LINK_FLAGS}")
 add_custom_target(fpga_sim DEPENDS ${SIMULATOR_TARGET})
