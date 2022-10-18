@@ -49,6 +49,7 @@ add_custom_target(fpga_emu DEPENDS ${EMULATOR_TARGET})
 # To compile in a single command:
 #   dpcpp -fintelfpga -DFPGA_SIMULATOR -Xssimulation -Xstarget=<FPGA_DEVICE> printf.cpp -o printf.fpga_sim
 add_executable(${SIMULATOR_TARGET} ${SOURCE_FILE})
+target_include_directories(${SIMULATOR_TARGET} PRIVATE ../../../../include)
 set_target_properties(${SIMULATOR_TARGET} PROPERTIES COMPILE_FLAGS "${SIMULATOR_COMPILE_FLAGS}")
 set_target_properties(${SIMULATOR_TARGET} PROPERTIES LINK_FLAGS "${SIMULATOR_LINK_FLAGS}")
 add_custom_target(fpga_sim DEPENDS ${SIMULATOR_TARGET})
