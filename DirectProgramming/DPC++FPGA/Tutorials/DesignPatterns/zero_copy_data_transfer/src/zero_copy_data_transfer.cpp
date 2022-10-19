@@ -28,8 +28,8 @@ int main(int argc, char* argv[]) {
   size_t size = 10000;
   size_t iterations = 1;
 #elif defined(FPGA_SIMULATOR)
-  size_t size = 1000000;
-  size_t iterations = 3;
+  size_t size = 100000;
+  size_t iterations = 2;
 #else
   size_t size = 100000000;
   size_t iterations = 5;
