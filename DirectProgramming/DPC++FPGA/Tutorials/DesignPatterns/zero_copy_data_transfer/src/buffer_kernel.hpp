@@ -45,6 +45,7 @@ double SubmitBufferKernel(queue& q, std::vector<T>& in, std::vector<T>& out,
   // host (if the buffer was written to).
   // Therefore, at this point in the code, we know the kernels have finished
   // and the data has been transferred back to the host.
+  q.wait();
 
   // stop the timer
   auto end = high_resolution_clock::now();

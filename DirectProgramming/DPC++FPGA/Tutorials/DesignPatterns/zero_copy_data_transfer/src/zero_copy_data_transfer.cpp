@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
     // device selector
 #if defined(FPGA_EMULATOR)
     ext::intel::fpga_emulator_selector selector;
-#elif defined(FPGA_SIMULATOR)
+#elif FPGA_SIMULATOR
     ext::intel::fpga_simulator_selector selector;
 #else
     ext::intel::fpga_selector selector;
