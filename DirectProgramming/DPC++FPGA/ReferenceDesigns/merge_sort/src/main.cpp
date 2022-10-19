@@ -78,7 +78,7 @@ int main(int argc, char *argv[]) {
   int runs = 2;
 #elif FPGA_SIMULATOR
   IndexT count = 1 << 16;
-  int runs = 5;
+  int runs = 3;
 #else
   IndexT count = 1 << 24;
   int runs = 17;
