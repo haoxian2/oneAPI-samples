@@ -38,10 +38,7 @@ double SubmitBufferKernel(queue& q, std::vector<T>& in, std::vector<T>& out,
       });
     });
   }
-  for (size_t i = 0; i < size; i++){
-    std::cout << in[i] << "   " << out[i] << "\n";
-  }
-
+  
   // We use the scope above to synchronize the FPGA kernels.
   // Exiting the scope will cause the buffer destructors to be called
   // which will wait until the kernels finish and copy the data back to the
