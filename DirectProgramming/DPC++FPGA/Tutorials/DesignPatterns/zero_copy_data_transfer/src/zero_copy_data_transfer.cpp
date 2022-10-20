@@ -27,7 +27,7 @@ int main(int argc, char* argv[]) {
 #if defined(FPGA_EMULATOR)
   size_t size = 10000;
   size_t iterations = 1;
-#elif defined(FPGA_SIMULATOR)
+#elif FPGA_SIMULATOR
   size_t size = 10000;
   size_t iterations = 1;
 #else
@@ -115,6 +115,12 @@ int main(int argc, char* argv[]) {
     for (size_t i = 0; i < iterations; i++) {
       zero_copy_latency[i] = SubmitZeroCopyKernel<Type>(q, in_zero_copy,
                                                         out_zero_copy, size);
+    }
+
+    std::cout << "Comparing all three outputs:\n";
+    for (int i = 0; i < size; i++){
+      std::cout << out_gold[i] << "   " << out_buffer[i]
+                << "   " << out_zero_copy[i] << "\n";
     }
 
     // validate the outputs

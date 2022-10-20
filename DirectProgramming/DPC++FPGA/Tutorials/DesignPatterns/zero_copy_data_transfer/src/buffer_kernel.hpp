@@ -38,6 +38,9 @@ double SubmitBufferKernel(queue& q, std::vector<T>& in, std::vector<T>& out,
       });
     });
   }
+  for (size_t i = 0; i < size; i++){
+    std::cout << in[i] << "   " << out[i] << "\n";
+  }
 
   // We use the scope above to synchronize the FPGA kernels.
   // Exiting the scope will cause the buffer destructors to be called
@@ -45,8 +48,6 @@ double SubmitBufferKernel(queue& q, std::vector<T>& in, std::vector<T>& out,
   // host (if the buffer was written to).
   // Therefore, at this point in the code, we know the kernels have finished
   // and the data has been transferred back to the host.
-  q.wait();
-
   // stop the timer
   auto end = high_resolution_clock::now();
   duration<double, std::milli> diff = end - start;
