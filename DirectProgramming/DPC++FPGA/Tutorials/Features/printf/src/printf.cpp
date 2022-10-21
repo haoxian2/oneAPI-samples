@@ -32,12 +32,6 @@ int main(int argc, char* argv[]) {
   ext::intel::fpga_selector device_selector;
 #endif
 
-#ifdef FPGA_SIMULATOR
-  long long_int = 6500L;
-#else
-  long long_int = 650000L;
-#endif
-
   queue q(device_selector);
   // Create some kernel arguments for printing.
   int x = 123;
@@ -51,7 +45,7 @@ int main(int argc, char* argv[]) {
          PRINTF("Result4: %u\n", 123);
          PRINTF("Result5: %.2f\n", y);
          PRINTF("Result6: print slash_n \\n \n");
-         PRINTF("Result7: Long: %ld\n", long_int);
+         PRINTF("Result7: Long: %ld\n", 650000L);
          PRINTF("Result8: Preceding with blanks: %10d \n", 1977);
          PRINTF("Result9: Preceding with zeros: %010d \n", 1977);
          PRINTF("Result10: Some different radices: %d %x %o %#x %#o \n", 100,
