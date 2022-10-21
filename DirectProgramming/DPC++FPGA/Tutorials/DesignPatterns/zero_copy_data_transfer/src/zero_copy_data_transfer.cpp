@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
   size_t size = 10000;
   size_t iterations = 1;
 #elif FPGA_SIMULATOR
-  size_t size = 10000;
+  size_t size = 700;
   size_t iterations = 1;
 #else
   size_t size = 100000000;
@@ -141,7 +141,9 @@ int main(int argc, char* argv[]) {
 
     // The FPGA emulator does not accurately represent the hardware performance
     // so we don't print performance results when running with the emulator
-#ifndef FPGA_EMULATOR
+#ifdef FPGA_EMULATOR
+#elif FPGA_SIMULATOR
+#else
     // Compute the average latency across all iterations.
     // We use the first iteration as a 'warmup' for the FPGA,
     // so we ignore its results.
