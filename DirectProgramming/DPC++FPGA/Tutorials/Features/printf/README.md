@@ -116,6 +116,10 @@ When compiling for FPGA hardware, it is recommended to increase the job timeout 
       ```
       make fpga_emu
       ```
+   * Compile for simulation (medium compile time, targets simulated FPGA device):
+      ```
+      make fpga_sim
+      ```
    * Generate the optimization report:
      ```
      make report
@@ -152,6 +156,10 @@ When compiling for FPGA hardware, it is recommended to increase the job timeout 
      ```
      nmake fpga_emu
      ```
+   * Compile for simulation (medium compile time, targets simulated FPGA device):
+     ```
+     nmake fpga_sim
+     ```
    * Generate the optimization report:
      ```
      nmake report
@@ -186,12 +194,17 @@ From the report, you can find the compilation information of the design and the 
 
 ## Running the Sample
 
- 1. Run the sample on the FPGA emulator (the kernel executes on the CPU):
+1. Run the sample on the FPGA emulator (the kernel executes on the CPU):
      ```
      ./printf.fpga_emu     (Linux)
      printf.fpga_emu.exe   (Windows)
      ```
-2. Run the sample on the FPGA device:
+2. Run the sample on the FPGA simulator:
+     ```
+     ./printf.fpga_sim     (Linux)
+     printf.fpga_sim.exe   (Windows)
+     ```
+3. Run the sample on the FPGA device:
      ```
      ./printf.fpga         (Linux)
      printf.fpga.exe       (Windows)
