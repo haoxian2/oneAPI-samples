@@ -35,19 +35,19 @@ endif()
 # 1. The "compile" stage compiles the device code to an intermediate representation (SPIR-V).
 # 2. The "link" stage invokes the compiler's FPGA backend before linking.
 #    For this reason, FPGA backend flags must be passed as link flags in CMake.
-set(EMULATOR_COMPILE_FLAGS "-Wall -fintelfpga -Wall -DFPGA_EMULATOR ${DEVICE_FLAG}")
-set(EMULATOR_LINK_FLAGS "-fintelfpga")
-set(SIMULATOR_COMPILE_FLAGS "-fsycl -Wall -fintelfpga -Wall -DFPGA_SIMULATOR ${DEVICE_FLAG}")
+set(EMULATOR_COMPILE_FLAGS "-Wall ${WIN_FLAG} -fsycl -fintelfpga -Wall -DFPGA_EMULATOR ${DEVICE_FLAG}")
+set(EMULATOR_LINK_FLAGS "-fsycl -fintelfpga")
+set(SIMULATOR_COMPILE_FLAGS "-Wall ${WIN_FLAG} -fsycl -fintelfpga -Xssimulation -Wall -DFPGA_SIMULATOR ${DEVICE_FLAG}")
 set(SIMULATOR_LINK_FLAGS "-fsycl -fintelfpga -Xssimulation -Xshyper-optimized-handshaking=off -Xstarget=${FPGA_DEVICE} ${DEVICE_FLAG} ${USER_SIMULATOR_FLAGS}")
-set(HARDWARE_COMPILE_FLAGS "-Wall -fintelfpga -Wall ${DEVICE_FLAG}")
-set(HARDWARE_LINK_FLAGS "-fintelfpga -Xshardware -Xshyper-optimized-handshaking=off -Xstarget=${FPGA_DEVICE} ${DEVICE_FLAG} ${USER_HARDWARE_FLAGS}")
+set(HARDWARE_COMPILE_FLAGS "-Wall ${WIN_FLAG} -fsycl -fintelfpga -Wall ${DEVICE_FLAG}")
+set(HARDWARE_LINK_FLAGS "-fsycl -fintelfpga -Xshardware -Xshyper-optimized-handshaking=off -Xstarget=${FPGA_DEVICE} ${DEVICE_FLAG} ${USER_HARDWARE_FLAGS}")
 # use cmake -D USER_HARDWARE_FLAGS=<flags> to set extra flags for FPGA backend compilation
 
 ###############################################################################
 ### FPGA Emulator
 ###############################################################################
 # To compile in a single command:
-#    icpx -fsycl -fintelfpga -DFPGA_EMULATOR zero_copy_data_transfer.cpp -o zero_copy_data_transfer.fpga_emu
+#    icpx -fsycl -fintelfpga -Xssimulation -DFPGA_SIMULATOR zero_copy_data_transfer.cpp -o zero_copy_data_transfer.fpga_emu
 # CMake executes:
 #    [compile] icpx -fsycl -fintelfpga -DFPGA_EMULATOR -o zero_copy_data_transfer.cpp.o -c zero_copy_data_transfer.cpp
 #    [link]    icpx -fsycl -fintelfpga zero_copy_data_transfer.cpp.o -o zero_copy_data_transfer.fpga_emu
@@ -61,10 +61,10 @@ add_custom_target(fpga_emu DEPENDS ${EMULATOR_TARGET})
 ### FPGA Simulator
 ###############################################################################
 # To compile in a single command:
-#    dpcpp -fintelfpga -Xssimulation -Xsboard=<FPGA_DEVICE> -DFPGA_SIMULATOR zero_copy_data_transfer.cpp -o zero_copy_data_transfer.fpga_sim
+#    icpx -fsycl -fintelfpga -DFPGA_EMULATOR zero_copy_data_transfer.cpp -o zero_copy_data_transfer.fpga_emu
 # CMake executes:
-#    [compile] dpcpp -fintelfpga -Xssimulation -DFPGA_SIMULATOR -o zero_copy_data_transfer.cpp.o -c zero_copy_data_transfer.cpp
-#    [link]    dpcpp -fintelfpga -Xssimulation -Xsboard=<FPGA_DEVICE> zero_copy_data_transfer.cpp.o -o zero_copy_data_transfer.fpga_sim
+#    [compile] icpx -fsycl -fintelfpga -Xssimulation -DFPGA_SIMULATOR -o zero_copy_data_transfer.cpp.o -c zero_copy_data_transfer.cpp
+#    [link]    icpx -fsycl -fintelfpga -Xssimulation zero_copy_data_transfer.cpp.o -o zero_copy_data_transfer.fpga_emu
 add_executable(${SIMULATOR_TARGET} ${SOURCE_FILE})
 target_include_directories(${SIMULATOR_TARGET} PRIVATE ../../../../include)
 set_target_properties(${SIMULATOR_TARGET} PROPERTIES COMPILE_FLAGS "${SIMULATOR_COMPILE_FLAGS}")
