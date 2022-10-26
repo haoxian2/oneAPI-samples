@@ -47,7 +47,7 @@ set(HARDWARE_LINK_FLAGS "-fsycl -fintelfpga -Xshardware -Xshyper-optimized-hands
 ### FPGA Emulator
 ###############################################################################
 # To compile in a single command:
-#    icpx -fsycl -fintelfpga -Xssimulation -DFPGA_SIMULATOR zero_copy_data_transfer.cpp -o zero_copy_data_transfer.fpga_emu
+#    icpx -fsycl -fintelfpga -DFPGA_EMULATOR zero_copy_data_transfer.cpp -o zero_copy_data_transfer.fpga_emu
 # CMake executes:
 #    [compile] icpx -fsycl -fintelfpga -DFPGA_EMULATOR -o zero_copy_data_transfer.cpp.o -c zero_copy_data_transfer.cpp
 #    [link]    icpx -fsycl -fintelfpga zero_copy_data_transfer.cpp.o -o zero_copy_data_transfer.fpga_emu
@@ -61,7 +61,7 @@ add_custom_target(fpga_emu DEPENDS ${EMULATOR_TARGET})
 ### FPGA Simulator
 ###############################################################################
 # To compile in a single command:
-#    icpx -fsycl -fintelfpga -DFPGA_EMULATOR zero_copy_data_transfer.cpp -o zero_copy_data_transfer.fpga_emu
+#    icpx -fsycl -fintelfpga -Xssimulation -DFPGA_SIMULATOR zero_copy_data_transfer.cpp -o zero_copy_data_transfer.fpga_emu
 # CMake executes:
 #    [compile] icpx -fsycl -fintelfpga -Xssimulation -DFPGA_SIMULATOR -o zero_copy_data_transfer.cpp.o -c zero_copy_data_transfer.cpp
 #    [link]    icpx -fsycl -fintelfpga -Xssimulation zero_copy_data_transfer.cpp.o -o zero_copy_data_transfer.fpga_emu
