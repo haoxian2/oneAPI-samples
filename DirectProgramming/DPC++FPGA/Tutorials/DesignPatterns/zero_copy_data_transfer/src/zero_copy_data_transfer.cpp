@@ -27,9 +27,6 @@ int main(int argc, char* argv[]) {
 #if defined(FPGA_EMULATOR)
   size_t size = 10000;
   size_t iterations = 1;
-#elif FPGA_SIMULATOR
-  size_t size = 700;
-  size_t iterations = 1;
 #else
   size_t size = 100000000;
   size_t iterations = 5;
@@ -50,8 +47,6 @@ int main(int argc, char* argv[]) {
     // device selector
 #if defined(FPGA_EMULATOR)
     ext::intel::fpga_emulator_selector selector;
-#elif FPGA_SIMULATOR
-    ext::intel::fpga_simulator_selector selector;
 #else
     ext::intel::fpga_selector selector;
 #endif
