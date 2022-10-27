@@ -136,9 +136,7 @@ int main(int argc, char* argv[]) {
 
     // The FPGA emulator does not accurately represent the hardware performance
     // so we don't print performance results when running with the emulator
-#ifdef FPGA_EMULATOR
-#elif FPGA_SIMULATOR
-#else
+#ifndef FPGA_EMULATOR
     // Compute the average latency across all iterations.
     // We use the first iteration as a 'warmup' for the FPGA,
     // so we ignore its results.

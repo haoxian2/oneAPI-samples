@@ -94,10 +94,6 @@ To learn more about the extensions and how to configure the oneAPI environment, 
      ```
      make fpga_emu
      ```
-   * Compile for simulation (medium compile time, targets simulated FPGA device):
-     ```
-     make fpga_sim
-     ```
    * Generate the optimization report:
      ```
      make report
@@ -130,10 +126,6 @@ To learn more about the extensions and how to configure the oneAPI environment, 
    * Compile for emulation (fast compile time, targets emulated FPGA device):
      ```
      nmake fpga_emu
-     ```
-   * Compile for simulation (medium compile time, targets simulated FPGA device):
-     ```
-     nmake fpga_sim
      ```
    * Generate the optimization report:
      ```
@@ -172,12 +164,7 @@ Locate `report.html` in the `zero_copy_data_transfer_report.prj/reports/` direct
      ./zero_copy_data_transfer.fpga_emu     (Linux)
      zero_copy_data_transfer.fpga_emu.exe   (Windows)
      ```
- 2. Run the sample on the FPGA simulator:
-     ```
-     ./zero_copy_data_transfer.fpga_emu     (Linux)
-     zero_copy_data_transfer.fpga_emu.exe   (Windows)
-     ```
- 3. Run the sample on the FPGA device:
+2. Run the sample on the FPGA device:
      ```
      ./zero_copy_data_transfer.fpga         (Linux)
      zero_copy_data_transfer.fpga.exe       (Windows)
