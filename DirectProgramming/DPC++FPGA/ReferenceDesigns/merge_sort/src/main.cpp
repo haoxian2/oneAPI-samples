@@ -61,6 +61,7 @@ bool Validate(T *val, T *ref, unsigned int count);
 
 
 int main(int argc, char *argv[]) {
+  std::cout << "HANG DEBUG: before everything\n";
   // the type to sort, needs a compare function!
   using ValueT = int;
 
@@ -73,6 +74,7 @@ int main(int argc, char *argv[]) {
   // reading and validating the command line arguments
   // defaults
   bool passed = true;
+  std::cout << "HANG DEBUG: before defining count and runs\n";
 #ifdef FPGA_EMULATOR
   IndexT count = 128;
   int runs = 2;
@@ -119,7 +121,7 @@ int main(int argc, char *argv[]) {
     std::terminate();
   }
   /////////////////////////////////////////////////////////////
-
+  std::cout << "HANG DEBUG: before defining selector\n";
   // the device selector
 #ifdef FPGA_EMULATOR
   ext::intel::fpga_emulator_selector selector;
@@ -131,7 +133,7 @@ int main(int argc, char *argv[]) {
 
   // create the device queue
   queue q(selector, fpga_tools::exception_handler);
-
+  std::cout << "HANG DEBUG: before q.get_device()\n";
   // make sure the device supports USM device allocations
   auto d = q.get_device();
   if (!q.get_device().has(aspect::usm_device_allocations)) {
@@ -147,7 +149,7 @@ int main(int argc, char *argv[]) {
               << " allocations\n";
     std::terminate();
   }
-
+  std::cout << "HANG DEBUG: before generating data\n";
   // the input, output, and reference data
   std::vector<ValueT> in_vec(count), out_vec(count), ref(count);
 
