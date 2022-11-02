@@ -156,18 +156,24 @@ int main(int argc, char *argv[]) {
   std::generate(in_vec.begin(), in_vec.end(), [] { return rand() % 100; });
 
   // copy the input to the output reference and compute the expected result
+  std::cout << "HANG DEBUG: before ref copy\n";
   std::copy(in_vec.begin(), in_vec.end(), ref.begin());
+  std::cout << "HANG DEBUG: after ref copy\n";
   std::sort(ref.begin(), ref.end());
+  std::cout << "HANG DEBUG: after ref sort\n";
 
   // allocate the input and output data either in USM host or device allocations
   ValueT *in, *out;
+  std::cout << "HANG DEBUG: before in/out value allocations\n";
   if constexpr (kUseUSMHostAllocation) {
     // using USM host allocations
+    std::cout << "HANG DEBUG: before in host alloc\n";
     if ((in = malloc_host<ValueT>(count, q)) == nullptr) {
       std::cerr << "ERROR: could not allocate space for 'in' using "
                 << "malloc_host\n";
       std::terminate();
     }
+    std::cout << "HANG DEBUG: before out host alloc\n";
     if ((out = malloc_host<ValueT>(count, q)) == nullptr) {
       std::cerr << "ERROR: could not allocate space for 'out' using "
                 << "malloc_host\n";
@@ -180,25 +186,31 @@ int main(int argc, char *argv[]) {
     // and avoided this copy. However, it makes the code cleaner to assume the
     // input is always in 'in_vec' and this portion of the code is not part of
     // the performance timing.
+    std::cout << "HANG DEBUG: before in host copy\n";
     std::copy(in_vec.begin(), in_vec.end(), in);
+    std::cout << "HANG DEBUG: before out host filled with 0s\n";
     std::fill(out, out + count, ValueT(0));
+    std::cout << "HANG DEBUG: after out host filled with 0s\n";
   } else {
     // using device allocations
+    std::cout << "HANG DEBUG: before in device alloc\n";
     if ((in = malloc_device<ValueT>(count, q)) == nullptr) {
       std::cerr << "ERROR: could not allocate space for 'in' using "
                 << "malloc_device\n";
       std::terminate();
     }
+    std::cout << "HANG DEBUG: before out device alloc\n";
     if ((out = malloc_device<ValueT>(count, q)) == nullptr) {
       std::cerr << "ERROR: could not allocate space for 'out' using "
                 << "malloc_device\n";
       std::terminate();
     }
-
+    std::cout << "HANG DEBUG: before in copy data\n";
     // copy the input to the device memory and wait for the copy to finish
     q.memcpy(in, in_vec.data(), count * sizeof(ValueT)).wait();
+    std::cout << "HANG DEBUG: after in copy data\n";
   }
-
+  std::cout << "HANG DEBUG: after in/out allocations\n";
   // track timing information, in ms
   std::vector<double> time(runs);
 
