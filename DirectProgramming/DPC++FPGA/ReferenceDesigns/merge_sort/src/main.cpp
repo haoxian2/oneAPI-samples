@@ -241,7 +241,7 @@ int main(int argc, char *argv[]) {
 
   // print the performance results
   if (passed) {
-    // NOTE: when run in emulation, these results do not accurately represent
+    // NOTE: when run in emulation or simulation, these results do not accurately represent
     // the performance of the kernels in actual FPGA hardware
     double avg_time_ms =
       std::accumulate(time.begin() + 1, time.end(), 0.0) / (runs - 1);

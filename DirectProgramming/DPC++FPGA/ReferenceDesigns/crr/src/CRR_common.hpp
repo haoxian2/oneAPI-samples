@@ -32,10 +32,17 @@
 constexpr int kMaxStringLen = 1024;
 
 // Increments of kMaxNSteps
+#ifndef FPGA_SIMULATOR
 constexpr size_t kMaxNSteps  = 8189;
 constexpr size_t kMaxNSteps1 = 8190;
 constexpr size_t kMaxNSteps2 = 8191;
 constexpr size_t kMaxNSteps3 = 8192;
+#else
+constexpr size_t kMaxNSteps  = 253;
+constexpr size_t kMaxNSteps1 = 254;
+constexpr size_t kMaxNSteps2 = 255;
+constexpr size_t kMaxNSteps3 = 256;
+#endif
 
 // Increment by a small epsilon in order to compute derivative 
 // of option price with respect to Vol or Interest. The derivatives
