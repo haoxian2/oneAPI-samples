@@ -129,13 +129,17 @@ To learn more about the extensions and how to configure the oneAPI environment, 
        ```
        make fpga_emu
        ```
-   2. Generate the HTML performance report.
+   2. Compile for simulation (medium compile time, targets simulated FPGA device).
+       ```
+       make fpga_sim
+       ```
+   3. Generate the HTML performance report.
        ```
        make report
        ```
       The report resides at `merge_sort_report.prj/reports/report.html`.
 
-   3. Compile for FPGA hardware (longer compile time, targets FPGA device).
+   4. Compile for FPGA hardware (longer compile time, targets FPGA device).
        ```
        make fpga
        ```
@@ -163,13 +167,17 @@ To learn more about the extensions and how to configure the oneAPI environment, 
       ```
       nmake fpga_emu
       ```
-   2. Generate the HTML performance report.
+   2. Compile for simulation (medium compile time, targets simulated FPGA device).
+      ```
+      nmake fpga_sim
+      ```
+   3. Generate the HTML performance report.
       ```
       nmake report
       ```
       The report resides at `merge_sort_report.a.prj/reports/report.html`.
 
-   3. Compile for FPGA hardware (longer compile time, targets FPGA device).
+   4. Compile for FPGA hardware (longer compile time, targets FPGA device).
       ```
       nmake fpga
       ```
@@ -192,7 +200,11 @@ If you receive an error message, troubleshoot the problem using the **Diagnostic
    ```
    ./merge_sort.fpga_emu
    ```
-2. Run the sample on the FPGA device.
+2. Run the sample on the FPGA simulator.
+   ```
+   ./merge_sort.fpga_sim
+   ```
+3. Run the sample on the FPGA device.
    ```
    ./merge_sort.fpga
    ```
@@ -202,7 +214,11 @@ If you receive an error message, troubleshoot the problem using the **Diagnostic
    ```
    merge_sort.fpga_emu.exe
    ```
-2. Run the sample on the FPGA device.
+2. Run the sample on the FPGA simulator.
+   ```
+   merge_sort.fpga_sim.exe
+   ```
+3. Run the sample on the FPGA device.
    ```
    merge_sort.fpga.exe
    ```
