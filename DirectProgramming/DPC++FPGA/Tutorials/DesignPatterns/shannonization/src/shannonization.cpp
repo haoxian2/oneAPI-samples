@@ -126,6 +126,8 @@ bool Intersection(queue& q, std::vector<unsigned int>& a,
   // accurate throughput measurement
 #if defined(FPGA_EMULATOR)
   int iterations = 1;
+#elif defined(FPGA_SIMULATOR)
+  int iterations = 1;
 #else
   int iterations = 5;
 #endif
@@ -163,7 +165,9 @@ bool Intersection(queue& q, std::vector<unsigned int>& a,
   // The FPGA emulator does not accurately represent the hardware performance
   // so we don't print performance results when running with the emulator
   if (success) {
-#ifndef FPGA_EMULATOR
+#ifdef FPGA_EMULATOR
+#elif FPGA_SIMULATOR
+#else
     // Compute the average throughput across all iterations.
     // We use the first iteration as a 'warmup' for the FPGA,
     // so we ignore its results.
@@ -188,6 +192,9 @@ bool Intersection(queue& q, std::vector<unsigned int>& a,
 int main(int argc, char** argv) {
   // parse the command line arguments
 #if defined(FPGA_EMULATOR)
+  unsigned int a_size = 128;
+  unsigned int b_size = 256;
+#elif defined(FPGA_SIMULATOR)
   unsigned int a_size = 128;
   unsigned int b_size = 256;
 #else
@@ -258,6 +265,8 @@ int main(int argc, char** argv) {
     // the device selector
 #ifdef FPGA_EMULATOR
     ext::intel::fpga_emulator_selector device_selector;
+#elif FPGA_SIMULATOR
+    ext::intel::fpga_simulator_selector device_selector;
 #else
     ext::intel::fpga_selector device_selector;
 #endif
@@ -324,6 +333,8 @@ int main(int argc, char** argv) {
                    "system has a correctly configured FPGA board.\n";
       std::cerr << "If you are targeting the FPGA emulator, compile with "
                    "-DFPGA_EMULATOR.\n";
+      std::cerr << "If you are targeting the FPGA simulator, compile with "
+                   "-DFPGA_SIMULATOR.\n";
     }
     std::terminate();
   }

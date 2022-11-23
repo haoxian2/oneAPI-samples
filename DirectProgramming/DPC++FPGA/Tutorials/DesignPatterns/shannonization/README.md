@@ -179,6 +179,10 @@ To learn more about the extensions and how to configure the oneAPI environment, 
      ```
      make fpga_emu
      ```
+   * Compile for simulation (medium compile time, targets simulated FPGA device):
+     ```
+     make fpga_sim
+     ```
    * Generate the optimization report:
      ```
      make report
@@ -215,6 +219,10 @@ To learn more about the extensions and how to configure the oneAPI environment, 
    * Compile for emulation (fast compile time, targets emulated FPGA device):
      ```
      nmake fpga_emu
+     ```
+   * Compile for simulation (medium compile time, targets simulated FPGA device):
+     ```
+     nmake fpga_sim
      ```
    * Generate the optimization report:
      ```
@@ -326,7 +334,12 @@ As a consequence of the fabric architecture of the Intel Stratix&reg; 10 SX FPGA
      ./shannonization.fpga_emu          (Linux)
      shannonization.fpga_emu.exe        (Windows)
      ```
-2. Run the sample on the FPGA device:
+ 2. Run the sample on the FPGA simulator:
+     ```
+     ./shannonization.fpga_sim          (Linux)
+     shannonization.fpga_sim.exe        (Windows)
+     ```
+ 3. Run the sample on the FPGA device:
      ```
      ./shannonization.fpga              (Linux)
      shannonization.fpga.exe            (Windows)
@@ -343,7 +356,7 @@ The following table explains the command line arguments that can be passed to th
 ### Example of Output
 You should see the following output in the console:
 
-1. When running on the FPGA emulator
+1. When running on the FPGA emulator or simulator
     ```
     Generating input data
     Computing golden result
