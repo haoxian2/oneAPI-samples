@@ -359,7 +359,9 @@ void ReadInputFromFile(ifstream &input_file, vector<InputData> &inp) {
     line_of_args_ss >> temp.t;
 
 #ifdef FPGA_SIMULATOR
-    temp.n_steps = kMaxNSteps;
+    if(temp.n_steps > kMaxNSteps){
+      temp.n_steps = kMaxNSteps;
+    }
 #endif
 
     inp.push_back(temp);
