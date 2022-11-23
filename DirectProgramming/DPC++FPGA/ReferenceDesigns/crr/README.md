@@ -39,7 +39,7 @@ This design reads inputs from the `ordered_inputs.csv` file. The inputs paramete
 
 | Input          | Description
 |:---            |:---
-| `n_steps`      | Number of time steps in the binomial tree. The maximum `n_steps` in this design is **8189**.
+| `n_steps`      | Number of time steps in the binomial tree. The maximum `n_steps` in this design is **243** for simulation and **8189** for emulation and.
 | `cp`           | -1 or 1 represents put and call options, respectively.
 | `spot`         | Spot price of the underlying price.
 | `fwd`          | Forward price of the underlying price.
