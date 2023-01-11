@@ -358,6 +358,12 @@ void ReadInputFromFile(ifstream &input_file, vector<InputData> &inp) {
     line_of_args_ss.ignore(1, ',');
     line_of_args_ss >> temp.t;
 
+#ifdef FPGA_SIMULATOR
+    if(temp.n_steps > kMaxNSteps){
+      temp.n_steps = kMaxNSteps;
+    }
+#endif
+
     inp.push_back(temp);
   }
 }
@@ -735,6 +741,8 @@ int main(int argc, char *argv[]) {
 
 #if FPGA_HARDWARE
     auto selector = sycl::ext::intel::fpga_selector_v;
+#elif FPGA_SIMULATOR
+    auto selector = sycl::ext::intel::fpga_simulator_selector_v;
 #else  // #if FPGA_EMULATOR
     auto selector = sycl::ext::intel::fpga_emulator_selector_v;
 #endif
@@ -792,6 +800,8 @@ int main(int argc, char *argv[]) {
 // ensure fast runtime
 #if defined(FPGA_EMULATOR)
     int temp_crrs = 1;
+#elif defined(FPGA_SIMULATOR)
+    int temp_crrs = OUTER_UNROLL;
 #else
     int temp_crrs = inp.size();
 #endif
@@ -862,6 +872,8 @@ int main(int argc, char *argv[]) {
                  "set up correctly\n";
     std::cerr << "   If you are targeting the FPGA emulator, compile with "
                  "-DFPGA_EMULATOR\n";
+    std::cerr << "   If you are targeting the FPGA simulator, compile with "
+                 "-DFPGA_SIMULATOR\n";
     return 1;
   }
   return 0;

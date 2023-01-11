@@ -71,7 +71,7 @@ This design reads inputs from the `ordered_inputs.csv` file. The inputs paramete
 
 | Input          | Description
 |:---            |:---
-| `n_steps`      | Number of time steps in the binomial tree. The maximum `n_steps` in this design is **8189**.
+| `n_steps`      | Number of time steps in the binomial tree. The maximum `n_steps` in this design is **243** for simulation and **8189** for emulation and.
 | `cp`           | -1 or 1 represents put and call options, respectively.
 | `spot`         | Spot price of the underlying price.
 | `fwd`          | Forward price of the underlying price.
@@ -167,13 +167,17 @@ This design measures the FPGA performance to determine how many assets can be pr
        ```
        make fpga_emu
        ```
-   2. Generate the HTML performance report.
+   2. Compile for simulation (medium compile time, targets simulated FPGA device).
+       ```
+       make fpga_sim
+       ```
+   3. Generate the HTML performance report.
       ```
       make report
       ```
       The report resides at `<project name>/reports/report.html`.
 
-   3. Compile for FPGA hardware (longer compile time, targets FPGA device).
+   4. Compile for FPGA hardware (longer compile time, targets FPGA device).
        ```
        make fpga
        ```
@@ -202,13 +206,17 @@ This design measures the FPGA performance to determine how many assets can be pr
       ```
       nmake fpga_emu
       ```
-   2. Generate the HTML performance report.
+   2. Compile for simulation (medium compile time, targets simulated FPGA device).
+      ```
+      nmake fpga_sim
+      ```
+   3. Generate the HTML performance report.
       ```
       nmake report
       ```
       The report resides at `<project name>.a.prj/reports/report.html`.
 
-   3. Compile for FPGA hardware (longer compile time, targets FPGA device).
+   4. Compile for FPGA hardware (longer compile time, targets FPGA device).
       ```
       nmake fpga
       ```
