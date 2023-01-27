@@ -38,10 +38,10 @@ constexpr size_t kMaxNSteps1 = 8190;
 constexpr size_t kMaxNSteps2 = 8191;
 constexpr size_t kMaxNSteps3 = 8192;
 #else
-constexpr size_t kMaxNSteps  = 253;
-constexpr size_t kMaxNSteps1 = 254;
-constexpr size_t kMaxNSteps2 = 255;
-constexpr size_t kMaxNSteps3 = 256;
+constexpr size_t kMaxNSteps  = 125;
+constexpr size_t kMaxNSteps1 = 126;
+constexpr size_t kMaxNSteps2 = 127;
+constexpr size_t kMaxNSteps3 = 128;
 #endif
 
 // Increment by a small epsilon in order to compute derivative 
